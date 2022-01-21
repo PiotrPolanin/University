@@ -10,16 +10,16 @@ import java.util.List;
 @Repository
 public interface StudentRepository extends GenericRepository<Student> {
 
-    @Query("SELECT s FROM Student s WHERE s.firstName = :firstName")
+    @Query("SELECT s FROM Student s WHERE lower(s.firstName) = lower(:firstName)")
     List<Student> findByFirstName(@Param("firstName") String firstName);
 
-    @Query("SELECT s FROM Student s WHERE s.lastName = :lastName")
+    @Query("SELECT s FROM Student s WHERE lower(s.lastName) = lower(:lastName)")
     List<Student> findByLastName(@Param("lastName") String lastName);
 
-    @Query("SELECT s FROM Student s WHERE s.firstName = :firstName AND s.lastName = :lastName")
+    @Query("SELECT s FROM Student s WHERE lower(s.firstName) = lower(:firstName) AND lower(s.lastName) = lower(:lastName)")
     List<Student> findByFullName(@Param("firstName") String firstName, @Param("lastName") String lastName);
 
-//    @Query(nativeQuery = true, value = "SELECT * FROM students s INNER JOIN students_teachers st ON st.student_id = s.id WHERE st.teacher_id = :teacherId")
+    //    @Query(nativeQuery = true, value = "SELECT * FROM students s INNER JOIN students_teachers st ON st.student_id = s.id WHERE st.teacher_id = :teacherId")
     @Query("SELECT s FROM Student s INNER JOIN s.teachers t WHERE t.id = :teacherId")
     List<Student> findByTeacherId(@Param("teacherId") Long teacherId);
 
