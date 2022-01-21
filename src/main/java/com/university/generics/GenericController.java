@@ -24,7 +24,7 @@ public abstract class GenericController<T extends UpdateEntity<T>> {
         if (validationMessage != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationMessage);
         }
-        T createdEntity = service.save(body); //Delete reference
+        service.save(body);
         return ResponseEntity.status(HttpStatus.CREATED).body("Entity was created");
     }
 
@@ -38,7 +38,7 @@ public abstract class GenericController<T extends UpdateEntity<T>> {
                                           @RequestParam(name = "pageSize", defaultValue = "10") Integer pageSize,
                                           @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
                                           @RequestParam(name = "dir", required = false) String dir) {
-        List<T> entities = service.getAll(pageNo, pageSize, sortBy, dir); //Delete reference
+        List<T> entities = service.getAll(pageNo, pageSize, sortBy, dir);
         return ResponseEntity.status(HttpStatus.OK).body(entities);
     }
 
@@ -48,7 +48,7 @@ public abstract class GenericController<T extends UpdateEntity<T>> {
         if (validationMessage != null) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(validationMessage);
         }
-        T updateEntity = service.update(id, body);
+        service.update(id, body);
         return ResponseEntity.status(HttpStatus.OK).body("Entity was updated");
     }
 
