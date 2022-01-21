@@ -31,8 +31,7 @@ public class StudentService extends GenericService<Student> {
     }
 
     public List<Student> getByTeacherId(Long id) {
-        List<Student> teacher = repository.findByTeacherId(id);
-        return teacher;
+        return repository.findByTeacherId(id);
     }
 
 }
